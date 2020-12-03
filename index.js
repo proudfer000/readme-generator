@@ -1,79 +1,102 @@
 const fs = require('fs');
-const { addListener, title } = require('process');
+const inquirer = require('inquirer')
 
-// array of questions for user
-const questions = [
+//Questions Object
+const questionsObj = {
+    title:'',
+    descriptionCntnt:'',
+    installCntnt:'',
+    usageCntnt:'',
+    photos:[],
+    photosNames:[];
+    contribCntnt:'',
+    testCntnt:'',
+    licenseCntnt:'',
+    userName:'',
+    email:'',
+    emailInstr:'',
+};
 
-];
+//Object Destructuring
+const { 
+    title, 
+    descriptionCntnt,
+    installCntnt,
+    usageCntnt,
+    photos,
+    photosNames,
+    contribCntnt,
+    testCntnt,
+    licenseCntnt,
+    userName,
+    email,
+    emailInstr,
+} = questionsObj;
 
 // function to write README file
 function writeToFile(fileName, data) {
 }
 
-// function to initialize program
+// Questions functions
 function init() {
 
 }
 
-// function call to initialize program
-init();
 
-
-
-
-
+//Readme Template Literals Skeleton
 const readmeSkeleton = `# ${ /* Your Project Title */title} 
 
 ## Description 
 
-${ /* Description content */title}
+${ /* Description content */descriptionCntnt}
 
 
 ## Table of Contents 
 
 * [Installation](#installation)
 * [Usage](#usage)
-* [Contributing to the project](#Contributing to the project)
-* [Test instructions](#Test instructions)
+* [Contributing to the project](#contributing-to-the-project)
+* [Test instructions](#test-instructions)
 * [License](#license)
-* [Questions](#Questions)
+* [Questions](#questions)
 
 
 ## Installation
 
-${ /* Installation instructions */title}
+${ /* Installation instructions */installCntnt}
 
 
 ## Usage 
 
-${ /* Usage instructions */title}
+${ /* Usage instructions */usageCntnt}
 
-${ /* Photos */title} optional
+${ /* Photos */''} 
 
 
 ## Contributing to the project
 
-${ /* Contributing content */title}
+${ /* Contributing content */contribCntnt}
 
 
 
 ## Test instructions
 
-${ /* Test instructions content */title}
+${ /* Test instructions content */testCntnt}
 
 
 
 ## License
 
-${ /* license content */title}
+${ /* license content */licenseCntnt}
 
 
 
 ## Questions
 
-${ /* Username */title}
-${ /* email */title}
-${ /* how to reach me description */title}
+${ /* Username */userName}
 
+${ /* email */email}
+
+${ /* how to reach me description */emailInstr}
 
 `;
