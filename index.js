@@ -3,7 +3,7 @@ const { restoreDefaultPrompts } = require('inquirer');
 const inquirer = require('inquirer')
 
 //Questions Object
-const questionsObj = {
+let questionsObj = {
     title:'test',
     descriptionCntnt:'test',
     installCntnt:'test',
