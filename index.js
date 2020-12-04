@@ -1,4 +1,5 @@
 const fs = require('fs');
+const { restoreDefaultPrompts } = require('inquirer');
 const inquirer = require('inquirer')
 
 //Questions Object
@@ -7,8 +8,7 @@ const questionsObj = {
     descriptionCntnt:'test',
     installCntnt:'test',
     usageCntnt:'test',
-    photos:[],
-    photosNames:[],
+    screenShots:'',
     contribCntnt:'test',
     testCntnt:'test',
     licenseCntnt:'test',
@@ -18,13 +18,12 @@ const questionsObj = {
 };
 
 //Object Destructuring
-const { 
+let { 
     title, 
     descriptionCntnt,
     installCntnt,
     usageCntnt,
-    photos,
-    photosNames,
+    screenShots,
     contribCntnt,
     testCntnt,
     licenseCntnt,
@@ -34,10 +33,17 @@ const {
 } = questionsObj;
 
 // function to write README file
-//function writeToFile(fileName, data) {
-//}
+function writeToFile(fileName, data) {
 
-// Inquirer functions
+  fs.writeFile(fileName, data, (err) => { 
+      
+        // In case of a error throw err. 
+        if (err) throw err; 
+
+    });
+}
+
+// Inquirer Questions
 var inquirerQuestions = () => {
   
     var questions = [
@@ -91,16 +97,97 @@ var inquirerQuestions = () => {
 
 
           {
+            type: 'editor',
+            name: 'contrib',
+            message: 'Please add guidelines to contribute (3 lines or more).',
+            validate: function (text) {
+              if (text.split('\n').length < 3) {
+                return 'Must be at least 3 lines.';
+              }
+        
+              return true;
+            },
+          },
+
+
+          {
+            type: 'editor',
+            name: 'test',
+            message: 'Please add guidelines for using the test (3 lines or more).',
+            validate: function (text) {
+              if (text.split('\n').length < 3) {
+                return 'Must be at least 3 lines.';
+              }
+        
+              return true;
+            },
+          },
+
+
+
+          {
+            type: 'list',
+            name: 'license',
+            message: 'What license do you need?',
+            choices: ['GNU', 'MIT'],
+            filter: function (val) {
+              return val.toLowerCase();
+            },
+          },
+
+
+          {
             type: 'input',
-            name: 'installation',
-            message: "What's your last name"},
+            name: 'username',
+            message: "What's your github username?"
+          },
+
+
+          {
+            type: 'input',
+            name: 'email',
+            message: "What's your email?"
+          },
+
+
+          {
+            type: 'editor',
+            name: 'emailInstr',
+            message: 'Please describe how to reach you (1 lines or more).',
+            validate: function (text) {
+              if (text.split('\n').length < 1) {
+                return 'Must be at least 3 lines.';
+              }
+        
+              return true;
+            },
+          },
 
 
         
       ];
       
       inquirer.prompt(questions).then((answers) => {
+
         console.log(answers);
+         
+          title =  answers.title;
+          descriptionCntnt = answers.description;
+          installCntnt = answers.install;
+          usageCntnt = answers.usage;
+          screenShots = '';
+          contribCntnt = answers.contrib;
+          testCntnt = answers.test;
+          licenseCntnt = answers.license;
+          userName = answers.username;
+          email = answers.email;
+          emailInstr = answers.emailInstr;
+
+          console.log('-----------------originalobj');
+          console.log(readmeSkeleton);
+          writeToFile('GntReadme.md',readmeSkeleton);
+      
+
       });
 
 }; 
