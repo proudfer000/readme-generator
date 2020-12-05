@@ -1,36 +1,6 @@
 const fs = require('fs');
-const { restoreDefaultPrompts } = require('inquirer');
 const inquirer = require('inquirer')
 
-//Questions Object
-let questionsObj = {
-    title:'test',
-    descriptionCntnt:'test',
-    installCntnt:'test',
-    usageCntnt:'test',
-    screenShots:'',
-    contribCntnt:'test',
-    testCntnt:'test',
-    licenseCntnt:'test',
-    userName:'test',
-    email:'test',
-    emailInstr:'test',
-};
-
-//Object Destructuring
-let { 
-    title, 
-    descriptionCntnt,
-    installCntnt,
-    usageCntnt,
-    screenShots,
-    contribCntnt,
-    testCntnt,
-    licenseCntnt,
-    userName,
-    email,
-    emailInstr,
-} = questionsObj;
 
 // function to write README file
 function writeToFile(fileName, data) {
@@ -53,7 +23,7 @@ var inquirerQuestions = () => {
           name: 'title',
           message: "What's the Title",
         },
-
+/*
         {
             type: 'editor',
             name: 'description',
@@ -164,38 +134,28 @@ var inquirerQuestions = () => {
           },
 
 
-        
+        */
       ];
       
       inquirer.prompt(questions).then((answers) => {
 
         console.log(answers);
-         
-          title =  answers.title;
-          descriptionCntnt = answers.description;
-          installCntnt = answers.install;
-          usageCntnt = answers.usage;
-          screenShots = '';
-          contribCntnt = answers.contrib;
-          testCntnt = answers.test;
-          licenseCntnt = answers.license;
-          userName = answers.username;
-          email = answers.email;
-          emailInstr = answers.emailInstr;
-
-          console.log('-----------------originalobj');
-          console.log(readmeSkeleton);
-          writeToFile('GntReadme.md',readmeSkeleton);
       
-
-      });
-
-}; 
-
+          let title =  answers.title;
+          let descriptionCntnt = answers.description;
+          let installCntnt = answers.install;
+          let usageCntnt = answers.usage;
+          let screenShots = '';
+          let contribCntnt = answers.contrib;
+          let testCntnt = answers.test;
+          let licenseCntnt = answers.license;
+          let userName = answers.username;
+          let email = answers.email;
+          let emailInstr = answers.emailInstr;
 
 //Readme Template Literals Skeleton
-const readmeSkeleton =
-
+const readmeContent = 
+  
 `# ${ /* Your Project Title */title} 
 
 ## Description 
@@ -252,6 +212,18 @@ ${ /* email */email}
 ${ /* how to reach me description */emailInstr}
 
 `;
+
+writeToFile('GntReadme.md',readmeContent);
+      
+
+      });
+
+}; 
+
+
+
+
+
 
 
 inquirerQuestions();
